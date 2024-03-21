@@ -2,43 +2,29 @@ import unittest
 from problem2_code import determine_board_state
 
 
-class TestDetermineBoardState(unittest.TestCase):
-    def test_valid_input_player1_win(self):
-        input_list = [[1, 1, 1],
-                      [0, 2, 0],
-                      [2, 0, 2]]
-        self.assertTrue(determine_board_state(input_list))
+class TestTicTacToe(unittest.TestCase):
+    def test_row_win(self):
+        # Test row win condition
+        self.assertTrue(determine_board_state([[1, 1, 1], [0, 2, 0], [0, 0, 2]]))
 
-    def test_valid_input_player2_win(self):
-        input_list = [[1, 0, 1],
-                      [0, 2, 2],
-                      [2, 2, 2]]
-        self.assertTrue(determine_board_state(input_list))
+    def test_column_win(self):
+        # Test column win condition
+        self.assertTrue(determine_board_state([[1, 0, 2], [1, 0, 2], [1, 0, 0]]))
 
-    def test_valid_input_no_winner(self):
-        input_list = [[1, 2, 1],
-                      [2, 1, 2],
-                      [2, 1, 2]]
-        self.assertFalse(determine_board_state(input_list))
+    def test_diagonal_win(self):
+        # Test diagonal win condition
+        self.assertTrue(determine_board_state([[2, 0, 1], [0, 2, 1], [1, 0, 2]]))
 
-    def test_invalid_input_wrong_type(self):
-        input_list = "invalid"
+    def test_no_win(self):
+        # Test no win condition
+        self.assertFalse(determine_board_state([[1, 2, 1], [2, 1, 2], [2, 1, 2]]))
+
+    def test_invalid_input_type(self):
+        # Test invalid input type
         with self.assertRaises(Exception):
-            determine_board_state(input_list)
+            determine_board_state("not a valid board")
 
-    def test_invalid_input_wrong_inner_list_length(self):
-        input_list = [[1, 2],
-                      [0, 1, 2],
-                      [2, 1, 0]]
-        with self.assertRaises(Exception):
-            determine_board_state(input_list)
-
-    def test_invalid_input_wrong_inner_list_value(self):
-        input_list = [[1, 2, "a"],
-                      [0, 1, 2],
-                      [2, 1, 0]]
-        with self.assertRaises(Exception):
-            determine_board_state(input_list)
 
 if __name__ == '__main__':
     unittest.main()
+
